@@ -3,7 +3,6 @@ def printme(str):
     print(str)
     return
 
-
 printme("你好，这是打印数据")
 list_temp = [1243, 'adf', '09sdf']
 printme(list_temp)
@@ -33,6 +32,13 @@ lambda函数拥有自己的命名空间，且不能访问自有参数列表之�
 """
 sum_sample = lambda arg1, arg2: arg1 + arg2;
 print(sum_sample(12, 9))
+
+
+import math
+content = dir(math)
+print(content)
+
+
 
 
 
