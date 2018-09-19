@@ -12,3 +12,6 @@ print(res)
 print(subprocess.run("ls -ltr", shell=True))
 
 print(subprocess.run(["ls", "-l"]))
+
+
+print(subprocess.run("echo hello", shell=True))
