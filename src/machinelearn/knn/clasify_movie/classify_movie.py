@@ -38,6 +38,8 @@ def classify0(idX, dataSet, labels, k):
 
     # 返回distance从小到大排序的索引值，选出距离最近的k个索引以及对于的标签
     sortedDistanceIndices = distance.argsort()
+    print("sortedDistanceIndex:")
+    print(sortedDistanceIndices)
     # 定义一个记录类别的字典
     classCount = {}
     for i in range(k):
