@@ -5,7 +5,7 @@ import datetime
 import matplotlib.pyplot as plt
 
 
-def createDataSet():
+def create_data_set():
     group = array([[1.0, 1.1], [1.0, 1.0], [0, 0], [0, 0.1]])
     labels = ['A', 'A', 'B', 'B']
     return group, labels
@@ -53,7 +53,7 @@ def StringLabel2Num(x):
         return 1
 
 
-def autoNorm(dataSet):
+def auto_norm(dataSet):
     minVals = dataSet.min(0)
     maxVals = dataSet.max(0)
     ranges = maxVals - minVals
@@ -70,7 +70,7 @@ def datingClassTest():
     # print(returnMat)
     # print(classLabelVector[0:20])
     # plot1(returnMat[:, 1], returnMat[:, 2], classLabelVector)
-    normDataSet, ranges, minVals = autoNorm(returnMat)
+    normDataSet, ranges, minVals = auto_norm(returnMat)
     m = normDataSet.shape[0]
     numTestVecs = int(m * hoRatio)
     errorCount = 0
@@ -103,19 +103,19 @@ def img2Vector(filename):
     return returnVector
 
 
-def handWriteClassTest():
-    hwLabels = []
-    trainingFileList = listdir("trainingDigits")
-    m = len(trainingFileList)
-    trainingMat = zeros((m, 1024))
+def hand_write_class_test():
+    hw_labels = []
+    training_file_list = listdir("trainingDigits")
+    m = len(training_file_list)
+    training_mat = zeros((m, 1024))
     for i in range(m):
-        fileName = trainingFileList[i]
-        fileNamePrefix = fileName.split(".")[0]
-        fileLabel = fileNamePrefix.split("_")[0]
-        trainingMat[i, :] = img2Vector("trainingDigits/%s" % fileName)
-        hwLabels.append(fileLabel)
-    print(trainingMat.shape)
-    print(set(hwLabels))
+        file_name = training_file_list[i]
+        file_name_prefix = file_name.split(".")[0]
+        file_label = file_name_prefix.split("_")[0]
+        training_mat[i, :] = img2Vector("trainingDigits/%s" % file_name)
+        hw_labels.append(file_label)
+    print(training_mat.shape)
+    print(set(hw_labels))
 
     errorCount = 0
     testLabels = []
@@ -123,16 +123,16 @@ def handWriteClassTest():
     n = len(testFileList)
     testMat = zeros((n, 1024))
     for j in range(n):
-        fileName = testFileList[j]
-        fileNamePrefix = fileName.split(".")[0]
-        fileLabel = fileNamePrefix.split("_")[0]
-        testVector = img2Vector("testDigits/%s" % fileName)
+        file_name = testFileList[j]
+        file_name_prefix = file_name.split(".")[0]
+        file_label = file_name_prefix.split("_")[0]
+        testVector = img2Vector("testDigits/%s" % file_name)
         testMat[j, :] = testVector
-        testLabels.append(fileLabel)
+        testLabels.append(file_label)
         # classifier
-        testResult = classify0(testVector, trainingMat, hwLabels, 7)
-        # print("classifier call back with: %d, the real answer is: %d" % (int(testResult), int(fileLabel)))
-        if testResult != fileLabel:
+        testResult = classify0(testVector, training_mat, hw_labels, 7)
+        # print("classifier call back with: %d, the real answer is: %d" % (int(testResult), int(file_label)))
+        if testResult != file_label:
             errorCount += 1
     print("the totel error numbers is: {}".format(errorCount))
     print("the total error is: %f" % (errorCount / float(n)))
@@ -140,14 +140,15 @@ def handWriteClassTest():
 
 if __name__ == '__main__':
     # 简单的KNN分类
-    group, labels = createDataSet()
-    test = [0, 0]
-    test_class = classify0(test, group, labels, 3)
-    print(test_class)
+    # group, labels = create_data_set()
+    # test = [0, 0]
+    # test_class = classify0(test, group, labels, 3)
+    # print(test_class)
+
     # date分类
     # datingClassTest()
     # 手写字分类
     start_time = datetime.datetime.now()
-    handWriteClassTest()
+    hand_write_class_test()
     end_time = datetime.datetime.now()
     print("time cost: %f" % float((end_time - start_time).seconds))
